@@ -15,6 +15,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        appBarTheme: ThemeData.light().appBarTheme.copyWith(
+              backgroundColor: Colors.pink,
+              foregroundColor: Colors.white,
+              centerTitle: true,
+            ),
+        textTheme: const TextTheme(
+          titleMedium: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
       ),
       routes: {
         '/': (ctx) => ProductsOverviewPage(),
