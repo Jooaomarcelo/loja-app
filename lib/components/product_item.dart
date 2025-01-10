@@ -35,7 +35,7 @@ class ProductItem extends StatelessWidget {
             title: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                product.title,
+                product.name,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
@@ -45,7 +45,7 @@ class ProductItem extends StatelessWidget {
                 // O 3º parâmetro é destinado ao 'child' (um componente que não sofre modificação caso fosse necessário).
                 onPressed: () => product.toggleFavorite(),
                 icon: Icon(
-                  product.isFavorit ? Icons.favorite : Icons.favorite_border,
+                  product.isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
