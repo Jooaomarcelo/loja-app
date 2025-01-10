@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/app_routes.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
+  const ProductItem({super.key});
 
-  const ProductItem({
-    required this.product,
-    super.key,
-  });
-
-  void _selectProduct(BuildContext context) {
+  void _selectProduct(BuildContext context, Product product) {
     Navigator.of(context).pushNamed(
       AppRoutes.PRODUCT_DETAIL,
       arguments: product,
@@ -19,10 +15,12 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
-        onTap: () => _selectProduct(context),
+        onTap: () => _selectProduct(context, product),
         splashColor: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(15),
         child: GridTile(
@@ -37,9 +35,9 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () => product.toggleFavorite(),
               icon: Icon(
-                Icons.favorite,
+                product.isFavorit ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
