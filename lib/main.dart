@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'models/product_list.dart';
 
 import 'utils/app_routes.dart';
 
@@ -14,34 +17,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Minha Loja',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.blueAccent,
-          secondary: Colors.deepOrange,
-        ),
-        useMaterial3: true,
-        appBarTheme: ThemeData.light().appBarTheme.copyWith(
-              backgroundColor: Colors.pink,
-              foregroundColor: Colors.white,
-              centerTitle: true,
+    return ChangeNotifierProvider(
+      create: (_) => ProductList(),
+      child: MaterialApp(
+        title: 'Minha Loja',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.blueAccent,
+            secondary: Colors.deepOrange,
+          ),
+          useMaterial3: true,
+          appBarTheme: ThemeData.light().appBarTheme.copyWith(
+                backgroundColor: Colors.pink,
+                foregroundColor: Colors.white,
+                centerTitle: true,
+              ),
+          textTheme: const TextTheme(
+            titleLarge: TextStyle(
+              fontFamily: 'Lato',
             ),
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            fontFamily: 'Lato',
-          ),
-          titleMedium: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
+            titleMedium: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
           ),
         ),
+        routes: {
+          AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),
+          AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      routes: {
-        AppRoutes.HOME: (ctx) => ProductsOverviewPage(),
-        AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
