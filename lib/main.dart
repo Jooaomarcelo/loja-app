@@ -8,6 +8,7 @@ import 'utils/app_routes.dart';
 
 import 'pages/product_detail_page.dart';
 import 'pages/products_overview_page.dart';
+import 'pages/cart_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
+          AppRoutes.CART: (ctx) => const CartPage(),
         },
         debugShowCheckedModeBanner: false,
       ),
