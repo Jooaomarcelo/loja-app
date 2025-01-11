@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/models/cart.dart';
+
 import 'package:shop/utils/app_routes.dart';
+
+import '../models/cart.dart';
 
 import '../components/product_grid.dart';
 import '../components/cart_badge.dart';
