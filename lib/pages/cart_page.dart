@@ -45,7 +45,7 @@ class CartPage extends StatelessWidget {
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     label: Text(
                       cart.itemsCount() > 0
-                          ? 'R\$${cart.getTotalAmount().toString()}'
+                          ? 'R\$${cart.totalAmount.toStringAsFixed(2)}'
                           : 'R\$0,00',
                       style: TextStyle(
                         color:

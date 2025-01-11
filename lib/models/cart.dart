@@ -45,12 +45,29 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeItemQuantity(String productId) {
+    if (_items[productId]!.quantity > 1) {
+      _items.update(
+          productId,
+          (currentItem) => CartItem(
+                id: currentItem.id,
+                productId: currentItem.productId,
+                name: currentItem.name,
+                quantity: currentItem.quantity - 1,
+                price: currentItem.price,
+              ));
+    } else {
+      removeItem(productId);
+    }
+    notifyListeners();
+  }
+
   void clearCart() {
     _items = {};
     notifyListeners();
   }
 
-  double getTotalAmount() {
+  double get totalAmount {
     double totalAmount = _items.values
         .map((cartItem) => cartItem.price * cartItem.quantity)
         .reduce((sum, element) => sum + element);
