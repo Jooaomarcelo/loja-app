@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
           appBarTheme: ThemeData.light().appBarTheme.copyWith(
-                backgroundColor: Colors.pink,
+                backgroundColor: Colors.blueAccent,
                 foregroundColor: Colors.white,
                 centerTitle: true,
               ),

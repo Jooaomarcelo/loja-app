@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../utils/app_routes.dart';
+
 import '../models/product.dart';
+import '../models/cart.dart';
+
+import '../utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -22,6 +25,8 @@ class ProductItem extends StatelessWidget {
       // Aqui foi utilizado o 'false' porque mais abaixo utilizamos o componente
       // 'Consumer' (definimos exatamente o que necessita de atualizações).
     );
+
+    final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -51,7 +56,7 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             trailing: IconButton(
-              onPressed: () {},
+              onPressed: () => cart.addItem(product),
               icon: Icon(
                 Icons.shopping_cart,
                 color: Theme.of(context).colorScheme.secondary,
