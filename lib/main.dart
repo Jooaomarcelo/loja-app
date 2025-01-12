@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shop/models/order_list.dart';
 import 'package:shop/pages/orders_page.dart';
@@ -31,13 +33,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Minha Loja',
         theme: ThemeData(
+          fontFamily: 'Lato',
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.blueAccent,
+            primary: Colors.blue[900],
             secondary: Colors.deepOrange,
           ),
           useMaterial3: true,
           appBarTheme: ThemeData.light().appBarTheme.copyWith(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: Colors.blue[900],
                 foregroundColor: Colors.white,
                 centerTitle: true,
               ),
@@ -60,6 +63,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.ORDERS: (ctx) => const OrdersPage(),
         },
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        supportedLocales: const [Locale('pt', 'BR')],
       ),
     );
   }
