@@ -6,8 +6,8 @@ import '../models/cart.dart';
 
 import '../utils/app_routes.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+class ProductGridItem extends StatelessWidget {
+  const ProductGridItem({super.key});
 
   void _selectProduct(BuildContext context, Product product) {
     Navigator.of(context).pushNamed(
@@ -56,7 +56,21 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             trailing: IconButton(
-              onPressed: () => cart.addItem(product),
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Produto adicionado com sucesso!'),
+                    duration: const Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'DESFAZER',
+                      textColor: Theme.of(context).colorScheme.error,
+                      onPressed: () => cart.removeItemQuantity(product.id),
+                    ),
+                  ),
+                );
+                cart.addItem(product);
+              },
               icon: Icon(
                 Icons.shopping_cart,
                 color: Theme.of(context).colorScheme.secondary,
