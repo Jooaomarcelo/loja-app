@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:provider/provider.dart';
-import 'package:shop/models/order_list.dart';
-import 'package:shop/pages/orders_page.dart';
 
 import 'models/product_list.dart';
 import 'models/cart.dart';
+import 'models/order_list.dart';
 
 import 'utils/app_routes.dart';
 
 import 'pages/product_detail_page.dart';
 import 'pages/products_overview_page.dart';
 import 'pages/cart_page.dart';
+import 'pages/orders_page.dart';
+import 'pages/products_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
           AppRoutes.CART: (ctx) => const CartPage(),
           AppRoutes.ORDERS: (ctx) => const OrdersPage(),
+          AppRoutes.PRODUCTS: (ctx) => const ProductsPage(),
         },
         debugShowCheckedModeBanner: false,
         localizationsDelegates: GlobalMaterialLocalizations.delegates,

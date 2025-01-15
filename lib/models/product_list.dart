@@ -9,6 +9,10 @@ class ProductList with ChangeNotifier {
   // Retornando uma cópia de itens e não a referência
   List<Product> get items => [..._items];
 
+  int get itemsCount {
+    return _items.length;
+  }
+
   List<Product> get favorites =>
       _items.where((item) => item.isFavorite).toList();
 
