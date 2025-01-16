@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/components/product_form_page.dart';
 
 import 'models/product_list.dart';
 import 'models/cart.dart';
@@ -14,6 +13,7 @@ import 'pages/products_overview_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/orders_page.dart';
 import 'pages/products_page.dart';
+import 'pages/product_form_page.dart';
 
 void main() {
   runApp(const MyApp());
