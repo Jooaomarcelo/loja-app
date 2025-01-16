@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
@@ -25,6 +23,27 @@ class _ProductFormPageState extends State<ProductFormPage> {
   void initState() {
     super.initState();
     _imageUrlFocus.addListener(_updateImage);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_formData.isEmpty) {
+      final arg = ModalRoute.of(context)?.settings.arguments;
+
+      if (arg != null) {
+        final product = arg as Product;
+
+        _formData['id'] = product.id;
+        _formData['name'] = product.name;
+        _formData['price'] = product.price;
+        _formData['description'] = product.description;
+        _formData['imageUrl'] = product.imageUrl;
+
+        _imageUrlController.text = product.imageUrl;
+      }
+    }
   }
 
   @override
@@ -62,7 +81,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
     Provider.of<ProductList>(
       context,
       listen: false,
-    ).addProductFromData(_formData);
+    ).saveProduct(_formData);
 
     Navigator.of(context).pop();
   }
@@ -86,6 +105,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
           child: ListView(
             children: [
               TextFormField(
+                initialValue: _formData['name'] as String,
                 decoration: const InputDecoration(
                   labelText: 'Nome',
                   enabledBorder: UnderlineInputBorder(
@@ -114,6 +134,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 onSaved: (name) => _formData['name'] = name ?? '',
               ),
               TextFormField(
+                initialValue: _formData['price']?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'Preço',
                   enabledBorder: UnderlineInputBorder(
@@ -143,6 +164,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 onSaved: (price) => _formData['price'] = double.parse(price!),
               ),
               TextFormField(
+                initialValue: _formData['description'] as String,
                 decoration: const InputDecoration(
                   labelText: 'Descrição',
                   enabledBorder: UnderlineInputBorder(
@@ -151,7 +173,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
                     ),
                   ),
                 ),
-                // textInputAction: TextInputAction.next,
                 focusNode: _descriptionFocus,
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
