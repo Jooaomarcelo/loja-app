@@ -58,7 +58,7 @@ class _OrderItemState extends State<OrderItem> {
                                 ),
                               ),
                               Text(
-                                '${product.quantity}x R\$${product.price}',
+                                '${product.quantity}x R\$${product.price.toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.grey,

@@ -26,7 +26,7 @@ class ProductDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'R\$ ${product.price}',
+              'R\$ ${product.price.toStringAsFixed(2)}',
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 20,

@@ -37,13 +37,10 @@ class ProductGridItem extends StatelessWidget {
         child: GridTile(
           footer: GridTileBar(
             backgroundColor: Colors.black87,
-            title: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                product.name,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            title: Text(
+              product.name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             leading: Consumer<Product>(
               builder: (ctx, product, _) => IconButton(

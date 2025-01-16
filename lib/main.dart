@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               ),
               titleMedium: TextStyle(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: 16,
               ),
               headlineMedium: TextStyle(
                 color: Colors.white,
