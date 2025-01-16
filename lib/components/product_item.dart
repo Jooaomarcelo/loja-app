@@ -37,8 +37,8 @@ class ProductItem extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.delete),
               color: Theme.of(context).colorScheme.error,
-              onPressed: () {
-                showDialog<bool>(
+              onPressed: () async {
+                final confirmDelete = await showDialog<bool>(
                   context: context,
                   builder: (ctx) => AlertDialog(
                     title: const Text('Exluir Produto'),
@@ -54,14 +54,16 @@ class ProductItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                ).then((value) {
-                  if (value ?? false) {
+                );
+
+                if (confirmDelete ?? false) {
+                  if (context.mounted) {
                     Provider.of<ProductList>(
                       context,
                       listen: false,
                     ).removeProduct(product);
                   }
-                });
+                }
               },
             ),
           ],
