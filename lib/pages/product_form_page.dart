@@ -105,7 +105,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: _formData['name'] as String,
+                initialValue: _formData['name']?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'Nome',
                   enabledBorder: UnderlineInputBorder(
@@ -164,7 +164,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 onSaved: (price) => _formData['price'] = double.parse(price!),
               ),
               TextFormField(
-                initialValue: _formData['description'] as String,
+                initialValue: _formData['description']?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'Descrição',
                   enabledBorder: UnderlineInputBorder(
