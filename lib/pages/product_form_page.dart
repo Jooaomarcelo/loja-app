@@ -13,8 +13,11 @@ class ProductFormPage extends StatefulWidget {
 class _ProductFormPageState extends State<ProductFormPage> {
   final _priceFocus = FocusNode();
   final _descriptionFocus = FocusNode();
-  final _imageUrlFocus = FocusNode();
-  final _imageUrlController = TextEditingController();
+
+  List<FocusNode> _imagesUrlFocus = [];
+  List<TextEditingController> _imagesUrlController = [];
+
+  int _visibleFields = 1;
 
   final _formKey = GlobalKey<FormState>();
   final _formData = <String, Object>{};
@@ -22,7 +25,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
   @override
   void initState() {
     super.initState();
-    _imageUrlFocus.addListener(_updateImage);
+
+    // Inicializando os controladores das imagens
+    _imagesUrlController = List.generate(3, (_) => TextEditingController());
+    _imagesUrlController[0].addListener(() => _updateVisibility());
+
+    _imagesUrlFocus = List.generate(3, (_) => FocusNode());
+    for (var focus in _imagesUrlFocus) {
+      focus.addListener(() => _updateImage());
+    }
   }
 
   @override
@@ -39,9 +50,11 @@ class _ProductFormPageState extends State<ProductFormPage> {
         _formData['name'] = product.name;
         _formData['price'] = product.price;
         _formData['description'] = product.description;
-        _formData['imageUrl'] = product.imageUrl;
+        _formData['imagesUrl'] = product.imagesUrl;
 
-        _imageUrlController.text = product.imageUrl;
+        for (int i = 0; i < 3; i++) {
+          _imagesUrlController[i].text = product.imagesUrl[i];
+        }
       }
     }
   }
@@ -52,12 +65,20 @@ class _ProductFormPageState extends State<ProductFormPage> {
     _priceFocus.dispose();
     _descriptionFocus.dispose();
 
-    _imageUrlFocus.removeListener(_updateImage);
-    _imageUrlFocus.dispose();
+    for (int i = 0; i < 3; i++) {
+      _imagesUrlController[i].dispose();
+      _imagesUrlFocus[i].dispose();
+    }
   }
 
   void _updateImage() {
     setState(() {});
+  }
+
+  void _updateVisibility() {
+    setState(() {
+      _visibleFields = 3;
+    });
   }
 
   bool _isImageUrlValid(String url) {
@@ -77,6 +98,13 @@ class _ProductFormPageState extends State<ProductFormPage> {
     }
 
     _formKey.currentState?.save();
+
+    // Salvando as urls
+    List<String> images = [];
+    for (var controller in _imagesUrlController) {
+      images.add(controller.text);
+    }
+    _formData['imagesUrl'] = images;
 
     Provider.of<ProductList>(
       context,
@@ -177,7 +205,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_imageUrlFocus);
+                  FocusScope.of(context).requestFocus(_imagesUrlFocus[0]);
                 },
                 validator: (fieldText) {
                   final description = fieldText ?? '';
@@ -195,60 +223,74 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 onSaved: (description) =>
                     _formData['description'] = description ?? '',
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Url da imagem',
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.url,
-                      focusNode: _imageUrlFocus,
-                      controller: _imageUrlController,
-                      onFieldSubmitted: (_) => _submitForm(),
-                      validator: (fieldText) {
-                        final imageUrl = fieldText ?? '';
-
-                        if (!_isImageUrlValid(imageUrl)) {
-                          return 'Insira uma Url válida';
-                        }
-
-                        return null;
-                      },
-                      onSaved: (imageUrl) =>
-                          _formData['imageUrl'] = imageUrl ?? '',
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 10,
-                      left: 10,
-                    ),
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: _imageUrlController.text.isEmpty
-                        ? const Text('Informe a Url')
-                        : FittedBox(
-                            child: Image.network(
-                              _imageUrlController.text,
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _visibleFields,
+                itemBuilder: (ctx, index) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: index == 0
+                                ? 'Url da imagem (Obrigatório)'
+                                : 'Url da imagem (Opcional)',
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
-                  )
-                ],
+                          textInputAction: index < 2
+                              ? TextInputAction.next
+                              : TextInputAction.done,
+                          keyboardType: TextInputType.url,
+                          focusNode: _imagesUrlFocus[index],
+                          controller: _imagesUrlController[index],
+                          onFieldSubmitted: (_) => (_) {
+                            FocusScope.of(context)
+                                .requestFocus(_imagesUrlFocus[index + 1]);
+                          },
+                          validator: (fieldText) {
+                            final imageUrl = fieldText ?? '';
+
+                            if (!_isImageUrlValid(imageUrl) &&
+                                _imagesUrlController[0].text.isEmpty) {
+                              return 'Insira uma Url válida';
+                            }
+
+                            return null;
+                          },
+                          onSaved: (imageUrl) =>
+                              _formData['imageUrl'] = imageUrl ?? '',
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 10,
+                          left: 10,
+                        ),
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: _imagesUrlController[index].text.isEmpty
+                            ? const Text('Informe a Url')
+                            : FittedBox(
+                                child: Image.network(
+                                  _imagesUrlController[index].text,
+                                ),
+                              ),
+                      )
+                    ],
+                  );
+                },
               ),
             ],
           ),
