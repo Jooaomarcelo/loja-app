@@ -20,7 +20,7 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(
       context,
-      listen: false,
+      listen: true,
       // Por padrão. Caso a APP não necessite atualizar o UI definir como 'false'.
       // Aqui foi utilizado o 'false' porque mais abaixo utilizamos o componente
       // 'Consumer' (definimos exatamente o que necessita de atualizações).
