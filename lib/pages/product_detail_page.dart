@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/components/product_detail_carousel.dart';
 
 import '../models/product.dart';
 
@@ -16,14 +17,7 @@ class ProductDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                product.imagesUrl[0],
-                fit: BoxFit.cover,
-              ),
-            ),
+            ProductDetailCarousel(product),
             const SizedBox(height: 10),
             Text(
               'R\$ ${product.price.toStringAsFixed(2)}',
