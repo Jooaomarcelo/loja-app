@@ -46,16 +46,17 @@ class MyApp extends StatelessWidget {
                 centerTitle: true,
               ),
           textTheme: const TextTheme(
-              titleLarge: TextStyle(
-                fontFamily: 'Lato',
-              ),
-              titleMedium: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-              headlineMedium: TextStyle(
-                color: Colors.white,
-              )),
+            titleLarge: TextStyle(
+              fontFamily: 'Lato',
+            ),
+            titleMedium: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+            headlineMedium: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
         routes: {
           AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),

@@ -7,8 +7,8 @@ final dummyProducts = [
     description: 'A red shirt - it is pretty red!',
     price: 29.99,
     imagesUrl: [
-      'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-      '',
+      'https://img.irroba.com.br/fit-in/600x600/filters:format(webp):fill(fff):quality(80)/stillosb/catalog/produtos/camiseta-lisa/camiseta-stillos-brother-lisa-vermelho-frente.jpg',
+      'https://img.irroba.com.br/fit-in/600x600/filters:format(webp):fill(fff):quality(80)/stillosb/catalog/produtos/camiseta-lisa/camiseta-stillos-brother-lisa-vermelho-verso.jpg',
       '',
     ],
   ),

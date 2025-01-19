@@ -33,7 +33,7 @@ class _ProductDetailCarouselState extends State<ProductDetailCarousel> {
         CarouselSlider(
           carouselController: _controller,
           options: CarouselOptions(
-            height: 300.0,
+            height: 400.0,
             viewportFraction: 1,
             enableInfiniteScroll: false,
             onPageChanged: (index, reason) {
@@ -46,11 +46,11 @@ class _ProductDetailCarouselState extends State<ProductDetailCarousel> {
             return Stack(
               children: [
                 SizedBox(
-                  height: 300,
+                  height: 400,
                   width: double.infinity,
                   child: Image.network(
                     url,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 Positioned(
