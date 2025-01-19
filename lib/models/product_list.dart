@@ -49,7 +49,7 @@ class ProductList with ChangeNotifier {
       name: data['name'] as String,
       description: data['description'] as String,
       price: data['price'] as double,
-      imageUrl: data['imageUrl'] as String,
+      imagesUrl: data['imagesUrl'] as List<String>,
     );
 
     if (hasId) {

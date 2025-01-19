@@ -20,7 +20,7 @@ class ProductDetailPage extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                product.imageUrl,
+                product.imagesUrl[0],
                 fit: BoxFit.cover,
               ),
             ),
